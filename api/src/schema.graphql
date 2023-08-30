@@ -1,0 +1,59 @@
+scalar DateTime
+
+interface BaseModel {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type Query {
+  avocados(skip: Int, take: Int, where: AvocadoFilterInput): [Avocado]!
+  avocado(id: ID!): Avocado
+}
+
+type Mutation {
+  createAvocado(data: CreateAvocadoInput!): Avocado!
+}
+
+type Attributes {
+  weight: Int!
+  size: String!
+}
+
+type Avocado implements BaseModel {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime
+  
+  name: String!
+  price: Float!
+  imageUrl: String!
+  attributes: Attributes!
+}
+
+input CreateAvocadoInput {  
+  name: String!
+  price: Float!
+  imageUrl: String!
+  weight: Int!
+  size: String!
+}
+
+input AvocadoFilterInput {
+  name: StringFilterInput
+  price: Float
+}
+
+input StringFilterInput {
+  equals: String,
+  notIn: [String],
+  in: [String],
+  lt: String,
+  lte: String,
+  gt: String,
+  gte: String,
+  contains: String,
+  startsWith: String,
+  endsWith: String,
+  not: String
+}
